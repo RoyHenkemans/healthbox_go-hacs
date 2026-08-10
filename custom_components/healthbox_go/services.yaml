@@ -1,0 +1,43 @@
+set_manual_override:
+  name: Set manual override
+  description: Temporarily set a ventilation percentage.
+  fields:
+    device_id:
+      name: Device
+      required: true
+      selector:
+        device:
+          integration: healthbox_go
+    percentage:
+      name: Percentage
+      required: true
+      default: 50
+      selector:
+        number:
+          min: 10
+          max: 100
+          step: 1
+          unit_of_measurement: "%"
+    duration:
+      name: Duration
+      description: Duration in seconds, up to 10 hours.
+      required: true
+      default: 600
+      selector:
+        number:
+          min: 60
+          max: 36000
+          step: 60
+          unit_of_measurement: s
+
+stop_manual_override:
+  name: Stop manual override
+  description: Stop the active manual ventilation override.
+  fields:
+    device_id:
+      name: Device
+      required: true
+      selector:
+        device:
+          integration: healthbox_go
+

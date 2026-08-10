@@ -1,0 +1,60 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Deze Healthbox Go is al geconfigureerd.",
+      "reconfigure_successful": "De configuratie van de Healthbox Go is bijgewerkt.",
+      "wrong_device": "Het nieuwe adres hoort bij een andere Healthbox Go."
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken met de Healthbox Go.",
+      "invalid_device": "Het apparaat gaf geen geldige Healthbox Go-informatie terug."
+    },
+    "step": {
+      "reconfigure": {"data": {"host": "Hostnaam of IP-adres"}, "description": "Vul het nieuwe lokale adres van deze Healthbox Go in.", "title": "Healthbox Go herconfigureren"},
+      "user": {"data": {"host": "Hostnaam of IP-adres"}, "description": "Vul het lokale IP-adres of de hostnaam van de Healthbox Go in.", "title": "Renson Healthbox Go toevoegen"}
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "co2_calibration_error": {"name": "CO₂-kalibratieprobleem"},
+      "co2_error": {"name": "CO₂-sensorprobleem"},
+      "co2_flash_error": {"name": "CO₂-geheugenprobleem"},
+      "manual_override": {"name": "Handmatige override"}
+    },
+    "button": {"stop_manual_override": {"name": "Handmatige override stoppen"}},
+    "fan": {"manual_ventilation": {"name": "Handmatige ventilatie"}},
+    "number": {
+      "breeze_threshold": {"name": "Breeze-temperatuurgrens"},
+      "co2_threshold": {"name": "CO₂-grenswaarde"},
+      "normal_ventilation": {"name": "Normaal ventilatieniveau"},
+      "silent_reduction": {"name": "Extra stille reductie"}
+    },
+    "select": {
+      "profile": {"name": "Ventilatieprofiel", "state": {"Eco": "Eco", "Health": "Gezondheid", "Intensive": "Intens"}},
+      "rh_sensitivity": {"name": "Vochtgevoeligheid", "state": {"High": "Hoog", "Low": "Laag", "Standard": "Standaard"}}
+    },
+    "sensor": {
+      "absolute_humidity": {"name": "Absolute luchtvochtigheid"},
+      "co2": {"name": "CO₂"},
+      "configured": {"name": "Configuratiestatus"},
+      "firmware": {"name": "Firmware"},
+      "manual_remaining": {"name": "Resterende handmatige override"},
+      "relative_humidity": {"name": "Relatieve luchtvochtigheid"},
+      "temperature": {"name": "Temperatuur"},
+      "trigger": {"name": "Ventilatiereden"},
+      "uptime": {"name": "Bedrijfstijd"},
+      "ventilation": {"name": "Actueel ventilatieniveau"},
+      "voc_index": {"name": "VOC-index"},
+      "wifi_rssi": {"name": "Wi-Fi-signaal"},
+      "wifi_status": {"name": "Wi-Fi-status"}
+    },
+    "switch": {
+      "breeze": {"name": "Breeze"},
+      "silent": {"name": "Extra stille modus"}
+    },
+    "time": {
+      "silent_end": {"name": "Extra stil einde"},
+      "silent_start": {"name": "Extra stil begin"}
+    }
+  }
+}

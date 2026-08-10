@@ -1,0 +1,84 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "This Healthbox Go is already configured.",
+      "reconfigure_successful": "The Healthbox Go configuration was updated.",
+      "wrong_device": "The new address belongs to a different Healthbox Go."
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the Healthbox Go.",
+      "invalid_device": "The device did not return valid Healthbox Go information."
+    },
+    "step": {
+      "reconfigure": {
+        "data": {"host": "Host or IP address"},
+        "description": "Enter the new local address of this Healthbox Go.",
+        "title": "Reconfigure Healthbox Go"
+      },
+      "user": {
+        "data": {"host": "Host or IP address"},
+        "description": "Enter the local IP address or hostname of the Healthbox Go.",
+        "title": "Add Renson Healthbox Go"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "co2_calibration_error": {"name": "CO₂ calibration problem"},
+      "co2_error": {"name": "CO₂ sensor problem"},
+      "co2_flash_error": {"name": "CO₂ memory problem"},
+      "manual_override": {"name": "Manual override"}
+    },
+    "button": {"stop_manual_override": {"name": "Stop manual override"}},
+    "fan": {"manual_ventilation": {"name": "Manual ventilation"}},
+    "number": {
+      "breeze_threshold": {"name": "Breeze temperature threshold"},
+      "co2_threshold": {"name": "CO₂ threshold"},
+      "normal_ventilation": {"name": "Normal ventilation level"},
+      "silent_reduction": {"name": "Extra quiet reduction"}
+    },
+    "select": {
+      "profile": {"name": "Ventilation profile", "state": {"Eco": "Eco", "Health": "Health", "Intensive": "Intensive"}},
+      "rh_sensitivity": {"name": "Humidity sensitivity", "state": {"High": "High", "Low": "Low", "Standard": "Standard"}}
+    },
+    "sensor": {
+      "absolute_humidity": {"name": "Absolute humidity"},
+      "co2": {"name": "CO₂"},
+      "configured": {"name": "Configured state"},
+      "firmware": {"name": "Firmware"},
+      "manual_remaining": {"name": "Manual override remaining"},
+      "relative_humidity": {"name": "Relative humidity"},
+      "temperature": {"name": "Temperature"},
+      "trigger": {"name": "Ventilation reason"},
+      "uptime": {"name": "Uptime"},
+      "ventilation": {"name": "Current ventilation level"},
+      "voc_index": {"name": "VOC index"},
+      "wifi_rssi": {"name": "Wi-Fi signal"},
+      "wifi_status": {"name": "Wi-Fi status"}
+    },
+    "switch": {
+      "breeze": {"name": "Breeze"},
+      "silent": {"name": "Extra quiet mode"}
+    },
+    "time": {
+      "silent_end": {"name": "Extra quiet end"},
+      "silent_start": {"name": "Extra quiet start"}
+    }
+  },
+  "services": {
+    "set_manual_override": {
+      "description": "Temporarily set a ventilation percentage.",
+      "fields": {
+        "device_id": {"description": "Healthbox Go device.", "name": "Device"},
+        "duration": {"description": "Duration in seconds (60–36000).", "name": "Duration"},
+        "percentage": {"description": "Ventilation percentage (10–100).", "name": "Percentage"}
+      },
+      "name": "Set manual override"
+    },
+    "stop_manual_override": {
+      "description": "Stop the active manual ventilation override.",
+      "fields": {"device_id": {"description": "Healthbox Go device.", "name": "Device"}},
+      "name": "Stop manual override"
+    }
+  }
+}
