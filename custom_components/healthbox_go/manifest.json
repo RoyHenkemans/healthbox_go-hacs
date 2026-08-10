@@ -1,11 +1,11 @@
 {
   "codeowners": ["@royhenkemans"],
   "config_flow": true,
-  "documentation": "https://github.com/royhenkemans/healthbox-go-home-assistant",
+  "documentation": "https://github.com/RoyHenkemans/healthbox_go-hacs",
   "domain": "healthbox_go",
   "integration_type": "device",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/royhenkemans/healthbox-go-home-assistant/issues",
+  "issue_tracker": "https://github.com/RoyHenkemans/healthbox_go-hacs/issues",
   "name": "Renson Healthbox Go",
   "requirements": ["renson-healthbox-go==0.1.0"],
   "version": "0.1.0"
