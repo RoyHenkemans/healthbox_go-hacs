@@ -29,6 +29,17 @@ from .helpers import (
     room_value,
 )
 
+TRIGGER_OPTIONS = [
+    "normal",
+    "manual",
+    "co2",
+    "humidity",
+    "voc",
+    "breeze",
+    "silent",
+    "other",
+]
+
 
 @dataclass(frozen=True, kw_only=True)
 class HealthboxSensorDescription(SensorEntityDescription):
@@ -86,7 +97,9 @@ SENSORS = (
     HealthboxSensorDescription(
         key="trigger",
         translation_key="trigger",
-        value_fn=lambda d: constellation_value(d, "trigger"),
+        device_class=SensorDeviceClass.ENUM,
+        options=TRIGGER_OPTIONS,
+        value_fn=lambda d: _friendly_trigger(constellation_value(d, "trigger")),
     ),
     HealthboxSensorDescription(
         key="manual_remaining",
@@ -155,3 +168,25 @@ class HealthboxGoSensor(HealthboxGoEntity, SensorEntity):
     @property
     def native_value(self):
         return self.entity_description.value_fn(self.data)
+
+
+def _friendly_trigger(value: Any) -> str | None:
+    """Map firmware trigger identifiers to stable, translatable states."""
+    if value is None:
+        return None
+    normalized = str(value).strip().lower()
+    if "voc" in normalized or "sgp40" in normalized:
+        return "voc"
+    if "co2" in normalized:
+        return "co2"
+    if any(part in normalized for part in ("humid", "h2o", "rh")):
+        return "humidity"
+    if any(part in normalized for part in ("boost", "manual")):
+        return "manual"
+    if "breeze" in normalized:
+        return "breeze"
+    if "silent" in normalized:
+        return "silent"
+    if any(part in normalized for part in ("minimum", "normal", "base")):
+        return "normal"
+    return "other"

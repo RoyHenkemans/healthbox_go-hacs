@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.helpers.entity import EntityCategory
 
 from .entity import HealthboxGoEntity
 from .helpers import nested
@@ -36,6 +37,7 @@ class HealthboxBreezeSwitch(HealthboxGoEntity, SwitchEntity):
 
 class HealthboxSilentSwitch(HealthboxGoEntity, SwitchEntity):
     _attr_translation_key = "silent"
+    _attr_entity_category = EntityCategory.CONFIG
 
     def __init__(self, coordinator) -> None:
         super().__init__(coordinator, "silent")

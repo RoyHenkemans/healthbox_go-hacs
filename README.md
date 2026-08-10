@@ -29,7 +29,7 @@ API key.
 HACS installs from a **public GitHub repository**, not directly from a local
 zip file. Publish this package as a repository while keeping the included
 directory structure unchanged. The integration uses the separate
-`renson-healthbox-go` communication library. Publish version 0.1.0 of the
+`renson-healthbox-go` communication library. Publish version 0.1.1 of the
 included `library/` project to PyPI first (or use its TestPyPI release while
 developing), because Home Assistant installs manifest dependencies from a
 package index. Then:
@@ -65,7 +65,7 @@ data:
   duration: 600
 ```
 
-Stop it with the **Stop manual override** button or:
+Turn the fan entity off to stop the override, or use:
 
 ```yaml
 action: healthbox_go.stop_manual_override
@@ -93,6 +93,7 @@ Writes use the matching decision endpoints. The normal ventilation value is
 converted against the unit's `nominal` calibrated base specification. Manual
 override percentages are sent directly, and the CO2 lower threshold is kept at
 250 ppm below the selected upper threshold, matching the Renson app.
+The humidity preset endpoint uses a JSON array containing the `rh` preset.
 
 ## Notes
 
@@ -116,4 +117,3 @@ under `library/`; the integration injects Home Assistant's shared aiohttp
 session. This separation is required for a future Home Assistant Core proposal.
 See `CORE_PROPOSAL.md` for the deliberately smaller first-PR scope and remaining
 publication/branding work.
-

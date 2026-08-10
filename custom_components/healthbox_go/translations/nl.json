@@ -41,7 +41,19 @@
       "manual_remaining": {"name": "Resterende handmatige override"},
       "relative_humidity": {"name": "Relatieve luchtvochtigheid"},
       "temperature": {"name": "Temperatuur"},
-      "trigger": {"name": "Ventilatiereden"},
+      "trigger": {
+        "name": "Ventilatiereden",
+        "state": {
+          "normal": "Normale ventilatie",
+          "manual": "Handmatige ventilatie",
+          "co2": "CO₂",
+          "humidity": "Vocht",
+          "voc": "VOC",
+          "breeze": "Breeze",
+          "silent": "Extra stille modus",
+          "other": "Overig"
+        }
+      },
       "uptime": {"name": "Bedrijfstijd"},
       "ventilation": {"name": "Actueel ventilatieniveau"},
       "voc_index": {"name": "VOC-index"},

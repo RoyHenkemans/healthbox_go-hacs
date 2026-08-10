@@ -49,7 +49,19 @@
       "manual_remaining": {"name": "Manual override remaining"},
       "relative_humidity": {"name": "Relative humidity"},
       "temperature": {"name": "Temperature"},
-      "trigger": {"name": "Ventilation reason"},
+      "trigger": {
+        "name": "Ventilation reason",
+        "state": {
+          "normal": "Normal ventilation",
+          "manual": "Manual ventilation",
+          "co2": "CO₂",
+          "humidity": "Humidity",
+          "voc": "VOC",
+          "breeze": "Breeze",
+          "silent": "Extra quiet mode",
+          "other": "Other"
+        }
+      },
       "uptime": {"name": "Uptime"},
       "ventilation": {"name": "Current ventilation level"},
       "voc_index": {"name": "VOC index"},

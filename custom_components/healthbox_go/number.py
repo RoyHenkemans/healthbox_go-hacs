@@ -58,13 +58,15 @@ NUMBERS = (
     HealthboxNumberDescription(
         key="silent_reduction",
         translation_key="silent_reduction",
-        native_min_value=5,
-        native_max_value=30,
+        native_min_value=-30,
+        native_max_value=-5,
         native_step=1,
         native_unit_of_measurement=PERCENTAGE,
         mode=NumberMode.SLIDER,
         entity_category=EntityCategory.CONFIG,
-        value_fn=lambda d: nested(d.get("silent", {}), "reduction"),
+        value_fn=lambda d: _negative_reduction(
+            nested(d.get("silent", {}), "reduction")
+        ),
         set_fn="silent",
     ),
 )
@@ -87,6 +89,14 @@ class HealthboxGoNumber(HealthboxGoEntity, NumberEntity):
     def native_value(self):
         return self.entity_description.value_fn(self.data)
 
+    @property
+    def native_min_value(self) -> float:
+        """Limit a reduction so it cannot exceed the normal ventilation level."""
+        if self.entity_description.key == "silent_reduction":
+            normal = normal_ventilation(self.data)
+            return -min(30.0, max(5.0, float(normal or 30.0)))
+        return self.entity_description.native_min_value
+
     async def async_set_native_value(self, value: float) -> None:
         api = self.coordinator.api
         if self.entity_description.set_fn == "normal":
@@ -98,5 +108,13 @@ class HealthboxGoNumber(HealthboxGoEntity, NumberEntity):
             await self.coordinator.async_write(api.set_breeze, threshold=value)
         else:
             await self.coordinator.async_write(
-                api.set_silent, self.data.get("silent"), reduction=value
+                api.set_silent, self.data.get("silent"), reduction=abs(value)
             )
+
+
+def _negative_reduction(value: Any) -> float | None:
+    """Present the API's positive reduction magnitude as a negative percentage."""
+    try:
+        return -abs(float(value))
+    except (TypeError, ValueError):
+        return None

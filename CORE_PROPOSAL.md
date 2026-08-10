@@ -8,7 +8,7 @@ Assistant Core pull request should be intentionally smaller.
 1. Move `library/` to its own public repository with issues enabled.
 2. Keep the MIT license and publish both source distribution and wheel from the
    included public trusted-publishing workflow.
-3. Tag `v0.1.0`; the PyPI version and tag must correspond exactly.
+3. Tag `v0.1.1`; the PyPI version and tag must correspond exactly.
 4. Confirm the final PyPI name and update `manifest.json` if it differs.
 5. Add Renson Healthbox Go brand assets through `home-assistant/brands`.
 6. Create Home Assistant documentation with installation and removal steps.
@@ -44,8 +44,8 @@ small Core branch or extract the initial files when preparing the PR.
 - Entity unique IDs and `has_entity_name`: implemented
 - Runtime state in `ConfigEntry.runtime_data`: implemented
 - Appropriate local polling coordinator: implemented (15 seconds)
-- Standalone communication dependency: implemented in source; PyPI/public CI
-  release still required
+- Standalone communication dependency: implemented and published through PyPI;
+  each integration requirement must match a public library release
 - Config-flow and integration test coverage: still required for the Core PR
 - Brand assets: still required in `home-assistant/brands`
 - Core documentation: still required in `home-assistant.io`
@@ -56,4 +56,3 @@ Being structurally prepared is not the same as being eligible today. Core's
 dependency-transparency rule has no exception: the library must actually be on
 PyPI, built by public CI, and match a tagged public source release before the
 integration PR is submitted.
-

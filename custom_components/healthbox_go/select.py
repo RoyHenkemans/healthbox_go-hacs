@@ -44,9 +44,19 @@ class HealthboxRhSelect(HealthboxGoEntity, SelectEntity):
     @property
     def current_option(self):
         presets = self.data.get("sensor_presets", {})
-        value = nested(presets, "sensitivity")
-        if value is None:
-            value = nested(presets, "rh", "sensitivity")
+        value = None
+        if isinstance(presets, list):
+            for preset in presets:
+                if (
+                    isinstance(preset, dict)
+                    and str(preset.get("sensor_type", "")).lower() == "rh"
+                ):
+                    value = preset.get("sensitivity")
+                    break
+        elif isinstance(presets, dict):
+            value = nested(presets, "sensitivity")
+            if value is None:
+                value = nested(presets, "rh", "sensitivity")
         if value is None:
             value = self._optimistic_value
         return API_TO_RH.get(value)
