@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
-from homeassistant.components.number import NumberEntity, NumberEntityDescription, NumberMode
-from homeassistant.const import CONCENTRATION_PARTS_PER_MILLION, PERCENTAGE, UnitOfTemperature
+from homeassistant.components.number import (
+    NumberEntity,
+    NumberEntityDescription,
+    NumberMode,
+)
+from homeassistant.const import PERCENTAGE, UnitOfRatio, UnitOfTemperature
 from homeassistant.helpers.entity import EntityCategory
 
 from .entity import HealthboxGoEntity
@@ -37,7 +42,7 @@ NUMBERS = (
         native_min_value=500,
         native_max_value=2000,
         native_step=50,
-        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+        native_unit_of_measurement=UnitOfRatio.PARTS_PER_MILLION,
         mode=NumberMode.BOX,
         value_fn=lambda d: room_value(
             d, "demand", "CO2", "static", "maximum"

@@ -8,7 +8,7 @@ Assistant Core pull request should be intentionally smaller.
 1. Move `library/` to its own public repository with issues enabled.
 2. Keep the MIT license and publish both source distribution and wheel from the
    included public trusted-publishing workflow.
-3. Tag `v0.1.1`; the PyPI version and tag must correspond exactly.
+3. Tag `v0.1.2`; the PyPI version and tag must correspond exactly.
 4. Confirm the final PyPI name and update `manifest.json` if it differs.
 5. Add Renson Healthbox Go brand assets through `home-assistant/brands`.
 6. Create Home Assistant documentation with installation and removal steps.

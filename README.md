@@ -24,12 +24,14 @@ API key.
 
 ## Installation
 
+Version 0.1.2 requires Home Assistant 2026.8 or later for `UnitOfRatio`.
+
 ### HACS custom repository
 
 HACS installs from a **public GitHub repository**, not directly from a local
 zip file. Publish this package as a repository while keeping the included
 directory structure unchanged. The integration uses the separate
-`renson-healthbox-go` communication library. Publish version 0.1.1 of the
+`renson-healthbox-go` communication library. Publish version 0.1.2 of the
 included `library/` project to PyPI first (or use its TestPyPI release while
 developing), because Home Assistant installs manifest dependencies from a
 package index. Then:
@@ -94,6 +96,42 @@ converted against the unit's `nominal` calibrated base specification. Manual
 override percentages are sent directly, and the CO2 lower threshold is kept at
 250 ppm below the selected upper threshold, matching the Renson app.
 The humidity preset endpoint uses a JSON array containing the `rh` preset.
+
+## Polling and recovery (0.1.2)
+
+The coordinator still schedules a refresh every 15 seconds after the previous
+refresh completes. Every poll reads the same eight endpoints, sequentially.
+Each client has its own request lock shared by reads and writes, plus a lock
+preventing overlapping complete polls. Different devices remain independent.
+Home Assistant's shared HTTP session remains owned by Home Assistant.
+
+A GET that fails at transport level gets one application-level retry after
+0.5 seconds. Each attempt has a 10-second timeout; the whole poll is capped at
+30 seconds, including time waiting for a concurrent write. Writes, HTTP errors
+and invalid JSON get no additional application-level retry. aiohttp itself may
+transparently retry an idempotent request when a reused connection closes.
+Responses are released with a context manager, including on cancellation.
+
+Failed live-endpoint connections still fail the poll and surface through the
+coordinator. Optional endpoint failures are logged at debug level and omitted
+from that update; old values are not cached as fresh. A full-poll timeout also
+fails the update. The next scheduled poll tries again without a permanent
+slowdown. Error messages include the method, endpoint, host and exception type;
+full-poll timeout messages identify the host and overall time budget.
+
+For transport diagnostics, temporarily enable:
+
+```yaml
+logger:
+  logs:
+    custom_components.healthbox_go: debug
+    renson_healthbox_go: debug
+```
+
+Publish the library 0.1.2 to PyPI before distributing the integration, whose
+manifest pins that exact version. Keep both existing config entries; no device
+or entity identifiers changed. A short direct-device smoke test is not a
+substitute for observing both units for 24 hours after installation.
 
 ## Notes
 

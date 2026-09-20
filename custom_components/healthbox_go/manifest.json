@@ -7,6 +7,6 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/RoyHenkemans/healthbox_go-hacs/issues",
   "name": "Renson Healthbox Go",
-  "requirements": ["renson-healthbox-go==0.1.1"],
-  "version": "0.1.1"
+  "requirements": ["renson-healthbox-go==0.1.2"],
+  "version": "0.1.2"
 }
